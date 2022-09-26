@@ -1,27 +1,23 @@
-import TestCases.TC_01;
-import Utils.DriverFactory;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
-public class Main extends DriverFactory {
+public class Main {
+    private WebDriver driver;
 
-    private DriverFactory driverFactory;
-    private TC_01 tc_01;
-
-    public Main(DriverFactory driverFactory) {
-        this.driverFactory = driverFactory;
-        tc_01 = new TC_01(driverFactory);
+    public void chromeInit(){
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
     }
 
     @Test
-    public void testRuner(){
-
-        tc_01.Scenario_01();
-
-
-
+    public void testMethod(){
+        chromeInit();
+        driver.get("https://www.catelulgras.ro/");
+        WebElement loginButton = driver.findElement(By.xpath("//span[contains(text(),'Autentificare / Înregistrare ')]/.."));
+        loginButton.click();
     }
-
 }
